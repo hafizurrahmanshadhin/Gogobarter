@@ -2,13 +2,16 @@
 
 namespace App\Services\Api\Auth;
 
-use App\Models\User;
 use Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginService {
     /**
-     * Handle the login process.
+     * Handle user login.
+     *
+     * @param array $data
+     * @return array
+     * @throws Exception
      */
     public function login(array $data): array {
         try {

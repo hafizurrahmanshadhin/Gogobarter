@@ -10,12 +10,12 @@ class SystemSettingSeeder extends Seeder {
         DB::table('system_settings')->insert([
             [
                 'id'             => 1,
-                'title'          => 'Admin_Dashboard_Dosix',
-                'system_name'    => 'Admin_Dashboard_Dosix',
+                'title'          => 'Admin_Dashboard',
+                'system_name'    => 'Admin_Dashboard',
                 'email'          => 'info@support.com',
-                'phone_number'   => '01915696677',
-                'address'        => 'Mohammadpur, Dhaka, Bangladesh',
-                'copyright_text' => '©Admin_Dashboard_Dosix',
+                'phone_number'   => '0123456789',
+                'address'        => 'Dhaka, Bangladesh',
+                'copyright_text' => '©Admin_Dashboard',
                 'description'    => '<p>About System...</p>',
                 'logo'           => null,
                 'favicon'        => null,

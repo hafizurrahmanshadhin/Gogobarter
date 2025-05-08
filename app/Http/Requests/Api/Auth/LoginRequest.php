@@ -30,7 +30,7 @@ class LoginRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'email'    => 'required|string|email|max:100',
+            'email'    => 'required|string|email|max:255',
             'password' => 'required|string|min:8',
         ];
     }

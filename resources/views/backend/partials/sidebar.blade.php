@@ -7,22 +7,23 @@
     <div class="navbar-brand-box">
         <a href="{{ route('dashboard') }}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset($systemSetting->logo ?? 'backend/images/logo-sm.png') }}" alt="Logo" height="22">
+                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
+                    style="width: 200px; height: 60px;">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset($systemSetting->logo ?? 'backend/images/logo-light.png') }}" alt="Logo"
-                    height="22">
+                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
+                    style="width: 200px; height: 60px;">
             </span>
         </a>
 
         <a href="{{ route('dashboard') }}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ asset($systemSetting->logo ?? 'backend/images/logo-sm.png') }}" alt="Logo"
-                    height="22">
+                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
+                    style="width: 200px; height: 60px;">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset($systemSetting->logo ?? 'backend/images/logo-light.png') }}" alt="Logo"
-                    height="22">
+                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
+                    style="width: 200px; height: 60px;">
             </span>
         </a>
 
@@ -53,24 +54,6 @@
                         class="nav-link menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class="ri-dashboard-line"></i>
                         <span data-key="t-dashboard">Dashboard</span>
-                    </a>
-                </li>
-
-                {{-- Service --}}
-                <li class="nav-item">
-                    <a href="{{ route('service.index') }}"
-                        class="nav-link menu-link {{ request()->routeIs('service.*') ? 'active' : '' }}">
-                        <i class="ri-tools-line"></i>
-                        <span data-key="t-faq">Service</span>
-                    </a>
-                </li>
-
-                {{-- Frequently Asked Questions --}}
-                <li class="nav-item">
-                    <a href="{{ route('faq.index') }}"
-                        class="nav-link menu-link {{ request()->routeIs('faq.*') ? 'active' : '' }}">
-                        <i class="ri-question-line"></i>
-                        <span data-key="t-faq">FAQ</span>
                     </a>
                 </li>
 

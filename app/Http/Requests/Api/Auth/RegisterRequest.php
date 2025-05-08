@@ -30,20 +30,11 @@ class RegisterRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'first_name' => 'required|string|alpha|max:255',
-            'last_name'  => 'required|string|alpha|max:255',
-            'email'      => 'required|string|email|max:255|unique:users,email',
-            // 'password'   => [
-            //     'required',
-            //     'string',
-            //     'min:8',
-            //     'confirmed',
-            //     'regex:/[a-z]/',
-            //     'regex:/[A-Z]/',
-            //     'regex:/[0-9]/',
-            //     'regex:/[@$!%*?&#]/'
-            // ],
-            'password'   => 'required|string|min:8|confirmed',
+            'name'                 => 'required|string|max:255',
+            'email'                => 'required|string|email|max:255|unique:users,email',
+            'password'             => 'required|string|min:8|confirmed',
+            'role'                 => 'required|string|in:user,trade',
+            'terms_and_conditions' => 'required|accepted',
         ];
     }
 

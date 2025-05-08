@@ -19,10 +19,11 @@ class RegisterService {
 
         try {
             $user = User::create([
-                'first_name' => $data['first_name'],
-                'last_name'  => $data['last_name'],
-                'email'      => $data['email'],
-                'password'   => bcrypt($data['password']),
+                'name'                 => $data['name'],
+                'email'                => $data['email'],
+                'password'             => bcrypt($data['password']),
+                'role'                 => $data['role'],
+                'terms_and_conditions' => $data['terms_and_conditions'],
             ]);
         } catch (Exception $e) {
             throw new Exception('User registration failed: ' . $e->getMessage());

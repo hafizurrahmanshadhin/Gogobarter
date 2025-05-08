@@ -14,10 +14,11 @@ class LoginResource extends JsonResource {
      */
     public function toArray(Request $request): array {
         return [
-            'id'         => $this->id,
-            'first_name' => $this->first_name,
-            'last_name'  => $this->last_name,
-            'email'      => $this->email,
+            'id'                   => $this->id,
+            'name'                 => $this->name,
+            'email'                => $this->email,
+            'role'                 => $this->role,
+            'terms_and_conditions' => $this->terms_and_conditions,
         ];
     }
 }

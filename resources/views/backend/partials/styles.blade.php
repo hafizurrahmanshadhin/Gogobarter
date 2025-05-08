@@ -4,7 +4,7 @@
 
 {{-- App favicon --}}
 <link rel="shortcut icon" type="image/x-icon"
-    href="{{ isset($systemSetting->favicon) && !empty($systemSetting->favicon) ? asset($systemSetting->favicon) : asset('backend/images/favicon.ico') }}" />
+    href="{{ isset($systemSetting->favicon) && !empty($systemSetting->favicon) ? asset($systemSetting->favicon) : asset('frontend/icons/success-icon.svg') }}" />
 
 {{-- Fonts css load --}}
 <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -291,4 +291,5 @@
 
 {{-- custom Css --}}
 <link href="{{ asset('backend/css/custom.min.css') }}" rel="stylesheet" type="text/css">
+
 @stack('styles')

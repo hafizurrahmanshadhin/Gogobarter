@@ -22,11 +22,13 @@ class LoginController extends Controller {
 
     /**
      * Handle user login.
+     *
+     * @param LoginRequest $request
+     * @return JsonResponse
      */
     public function login(LoginRequest $request): JsonResponse {
         try {
             $credentials = $request->validated();
-            Log::info('Login data:', $credentials);
 
             $result = $this->loginService->login($credentials);
 
@@ -39,7 +41,6 @@ class LoginController extends Controller {
                 'data'       => new LoginResource($result['user']),
             ]);
         } catch (Exception $e) {
-            Log::error('Login Error: ' . $e->getMessage());
             if ($e->getMessage() === 'Unauthorized') {
                 return $this->helper->jsonResponse(false, 'Unauthorized', 401, [
                     'error' => $e->getMessage(),

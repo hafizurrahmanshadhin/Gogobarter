@@ -7,7 +7,6 @@ use App\Http\Controllers\Web\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Web\Auth\NewPasswordController;
 use App\Http\Controllers\Web\Auth\PasswordController;
 use App\Http\Controllers\Web\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Web\Auth\SocialiteController;
 use App\Http\Controllers\Web\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,10 +55,4 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-});
-
-Route::controller(SocialiteController::class)->group(function () {
-    Route::get('/login/google', 'GoogleRedirect')->name('google-login');
-    Route::get('/login/google/callback', 'GoogleCallback');
-    Route::get('/google-refresh-token', 'GoogleRefreshToken')->name('google.refresh');
 });

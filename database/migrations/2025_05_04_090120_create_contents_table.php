@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['termsAndConditions', 'privacyPolicy', 'inclusionsCancellation'])->nullable(false);
+            $table->enum('type', ['termsAndConditions', 'privacyPolicy'])->nullable(false);
             $table->string('title');
             $table->string('slug');
             $table->longText('content');

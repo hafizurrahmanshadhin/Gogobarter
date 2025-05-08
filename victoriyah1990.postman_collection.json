@@ -17,19 +17,15 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"const firstNames = [\"John\", \"Jane\", \"Michael\", \"Emily\", \"David\", \"Sarah\", \"Robert\", \"Jessica\", \"Daniel\", \"Laura\"];\r",
-									"const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];\r",
-									"\r",
-									"const lastNames = [\"Smith\", \"Johnson\", \"Williams\", \"Brown\", \"Jones\", \"Miller\", \"Davis\", \"Garcia\", \"Rodriguez\", \"Martinez\"];\r",
-									"const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];\r",
+									"const names = [\"John\", \"Jane\", \"Michael\", \"Emily\", \"David\", \"Sarah\", \"Robert\", \"Jessica\", \"Daniel\", \"Laura\"];\r",
+									"const name = names[Math.floor(Math.random() * names.length)];\r",
 									"\r",
 									"const domains = [\"example.com\", \"test.com\", \"email.com\", \"demo.com\", \"gmail.com\", \"yahoo.com\", \"hotmail.com\", \"outlook.com\"];\r",
 									"const randomNumber = Math.floor(Math.random() * 1000);\r",
 									"const randomDomain = domains[Math.floor(Math.random() * domains.length)];\r",
-									"const email = `${firstName.toLowerCase()}${randomNumber}@${randomDomain}`;\r",
+									"const email = `${name.toLowerCase()}${randomNumber}@${randomDomain}`;\r",
 									"\r",
-									"pm.globals.set(\"first_name\", firstName);\r",
-									"pm.globals.set(\"last_name\", lastName);\r",
+									"pm.globals.set(\"name\", name);\r",
 									"pm.globals.set(\"email\", email);\r",
 									""
 								],
@@ -76,13 +72,8 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "first_name",
-									"value": "{{first_name}}",
-									"type": "text"
-								},
-								{
-									"key": "last_name",
-									"value": "{{last_name}}",
+									"key": "name",
+									"value": "{{name}}",
 									"type": "text"
 								},
 								{
@@ -98,6 +89,18 @@
 								{
 									"key": "password_confirmation",
 									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "trade",
+									"description": "Accept only 'user' or 'trade'",
+									"type": "text"
+								},
+								{
+									"key": "terms_and_conditions",
+									"value": "1",
+									"description": "Boolean value, Accept only 0 or 1 (For registration must be pass 1). 1 = true; 0 = false",
 									"type": "text"
 								}
 							]
@@ -168,6 +171,12 @@
 							"formdata": [
 								{
 									"key": "email",
+									"value": "shadhin666@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
 									"value": "user@user.com",
 									"type": "text"
 								},
@@ -230,6 +239,11 @@
 						"header": [
 							{
 								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
 							}
@@ -354,19 +368,19 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "email",
+								"value": "shadhin666@gmail.com",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
-									"value": "shadhin666@gmail.com",
-									"type": "text"
-								},
-								{
 									"key": "otp",
-									"value": "9250",
+									"value": "5019",
 									"type": "text"
 								}
 							]
@@ -423,16 +437,16 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "email",
+								"value": "shadhin666@gmail.com",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
-								{
-									"key": "email",
-									"value": "shadhin666@gmail.com",
-									"type": "text"
-								},
 								{
 									"key": "password",
 									"value": "123456789",
@@ -453,91 +467,6 @@
 							"path": [
 								"auth",
 								"reset-password"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Socialite_Login",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "provider",
-									"value": "apple",
-									"description": "this provider is for apple login",
-									"type": "text"
-								},
-								{
-									"key": "token",
-									"value": "{{vault:json-web-token}}",
-									"description": "this token is for apple login",
-									"type": "text"
-								},
-								{
-									"key": "provider",
-									"value": "google",
-									"description": "this provider is for google login",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "token",
-									"value": "ya29.a0AeXRPp5Nx62ZPvvt0cHRIEOTu2SFuJH5LGAxdmsIbV9xvv97rIciPOLBR9t4xVmXrgUsuQV5l_IgBeBP9AYDXB0AKZO_UAwWx5W6Cc-XLQGKENt_6otVO3iDUF_NEOajJUX63a0Vow3tRXBnoi8nbC_sZwN3OpfKFw0JZW0naCgYKAYcSARISFQHGX2Mi-WBWCdLNexCV9GmLO4sE9g0175",
-									"description": "this token is for google login",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/auth/socialite-login",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"auth",
-								"socialite-login"
 							]
 						}
 					},
@@ -771,6 +700,12 @@
 		{
 			"key": "base_url",
 			"value": "http://127.0.0.1:8000/api"
+		},
+		{
+			"key": "base_url",
+			"value": "https://victoriyah1990.softvencefsd.xyz/api",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }

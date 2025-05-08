@@ -1,6 +1,6 @@
 @extends('frontend.app')
 
-@section('title', 'Admin Dashboard Dosix')
+@section('title', 'Home')
 
 @push('styles')
     <style>
@@ -17,7 +17,7 @@
         }
 
         body {
-            background-image: url('{{ asset('frontend/mockup_image.jpg') }}');
+            background-image: url('{{ asset('frontend/mockup_image.png') }}');
             background-size: cover;
             background-position: top center;
             background-repeat: no-repeat;

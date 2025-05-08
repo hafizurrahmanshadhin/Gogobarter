@@ -9,10 +9,10 @@
                 <div class="text-center mt-4">
                     <div class="mb-4 pb-2">
                         <a href="{{ route('index') }}" class="auth-logo">
-                            <img src="{{ $systemSetting->logo ? asset($systemSetting->logo) : asset('backend/images/logo-dark.png') }}"
-                                alt="logo" height="30" class="auth-logo-dark mx-auto">
-                            <img src="{{ $systemSetting->logo ? asset($systemSetting->logo) : asset('backend/images/logo-light.png') }}"
-                                alt="logo" height="30" class="auth-logo-light mx-auto">
+                            <img src="{{ $systemSetting->logo ? asset($systemSetting->logo) : asset('frontend/Logo.png') }}"
+                                alt="logo" height="30" class="auth-logo-dark mx-auto" style="height: 50px;">
+                            <img src="{{ $systemSetting->logo ? asset($systemSetting->logo) : asset('frontend/Logo.png') }}"
+                                alt="logo" height="30" class="auth-logo-light mx-auto" style="height: 50px;">
                         </a>
                     </div>
                     <h5 class="fs-3xl">Create New Account</h5>
