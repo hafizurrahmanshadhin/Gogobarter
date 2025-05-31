@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('cover_photo')->nullable();
             $table->dateTime('date_of_birth')->nullable();
             $table->timestamp('otp_verified_at')->nullable();
-            $table->enum('role', ['admin', 'user', 'trade'])->nullable(false);
+            $table->enum('role', ['admin', 'user'])->default('user');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->timestamp('created_at')->useCurrent();

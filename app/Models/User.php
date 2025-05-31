@@ -47,4 +47,29 @@ class User extends Authenticatable implements JWTSubject {
     public function getJWTCustomClaims(): array {
         return [];
     }
+
+    /**
+     * When saving email, always lowercase
+     */
+    public function setEmailAttribute($value) {
+        $this->attributes['email'] = strtolower($value);
+    }
+
+    /**
+     * successor for avatar attribute
+     *
+     * @param mixed $url
+     * @return string
+     */
+    public function getAvatarAttribute($url): string {
+        if ($url) {
+            if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+                return $url;
+            } else {
+                return asset('storage/' . $url);
+            }
+        } else {
+            return asset('backend/images/users/user-dummy-img.jpg');
+        }
+    }
 }

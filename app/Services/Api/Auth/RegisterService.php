@@ -22,7 +22,6 @@ class RegisterService {
                 'name'                 => $data['name'],
                 'email'                => $data['email'],
                 'password'             => bcrypt($data['password']),
-                'role'                 => $data['role'],
                 'terms_and_conditions' => $data['terms_and_conditions'],
             ]);
         } catch (Exception $e) {
