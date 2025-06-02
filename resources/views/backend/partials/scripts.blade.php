@@ -30,7 +30,9 @@
 <script src="{{ asset('backend/libs/prismjs/prism.js') }}"></script>
 
 {{-- dropify js --}}
-<script src="{{ asset('backend/js/dropify.min.js') }}"></script>
+{{-- <script src="{{ asset('backend/js/dropify.min.js') }}"></script> --}}
+<script type="text/javascript" src="{{ asset('backend/custom_downloaded_file/dropify.min.js') }}"></script>
+<script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
 <script src="{{ asset('backend/libs/list.pagination.js/list.pagination.min.js') }}"></script>
 

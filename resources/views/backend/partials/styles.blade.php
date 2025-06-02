@@ -26,9 +26,10 @@
 {{-- App Css --}}
 <link href="{{ asset('backend/css/app.min.css') }}" rel="stylesheet" type="text/css">
 
-
 {{-- dropify css --}}
-<link rel="stylesheet" href="{{ asset('backend/css/dropify.min.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('backend/css/dropify.min.css') }}"> --}}
+<link rel="stylesheet" type="text/css" href="{{ asset('backend/custom_downloaded_file/dropify.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
 
 {{-- Sweet Alert css --}}
 <link href="{{ asset('backend/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">

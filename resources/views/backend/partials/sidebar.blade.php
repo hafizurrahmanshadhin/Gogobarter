@@ -2,6 +2,12 @@
     $systemSetting = App\Models\SystemSetting::first();
 @endphp
 
+<style>
+    .navbar-menu .navbar-nav .nav-sm .nav-link:before {
+        display: none;
+    }
+</style>
+
 <div class="app-menu navbar-menu">
     {{-- Logo & Toggle Button --}}
     <div class="navbar-brand-box">
@@ -55,6 +61,67 @@
                         <i class="ri-dashboard-line"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
+                </li>
+
+
+                {{-- CMS --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('admin/cms/*') ? 'active' : '' }}" href="#sidebarCms"
+                        data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('admin/cms/*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarCms">
+                        <i class="ri-file-list-line"></i>
+                        <span data-key="t-cms">CMS</span>
+                    </a>
+
+                    <div class="collapse menu-dropdown {{ request()->is('admin/cms/*') ? 'show' : '' }}"
+                        id="sidebarCms">
+                        <ul class="nav nav-sm flex-column">
+                            {{-- Hero Section --}}
+                            <li class="nav-item">
+                                <a href="{{ route('home-page.hero-section.index') }}"
+                                    class="nav-link {{ request()->routeIs('home-page.hero-section.*') ? 'active' : '' }}"
+                                    data-key="t-testimonials" style="white-space: nowrap">
+                                    <i class="ri-checkbox-blank-circle-fill"
+                                        style="font-size:0.6rem; margin-right:-1rem;"></i>
+                                    Hero Section
+                                </a>
+                            </li>
+
+                            {{-- Service Section --}}
+                            <li class="nav-item">
+                                <a href="{{ route('home-page.service.index') }}"
+                                    class="nav-link {{ request()->routeIs('home-page.service.*') ? 'active' : '' }}"
+                                    data-key="t-testimonials" style="white-space: nowrap">
+                                    <i class="ri-checkbox-blank-circle-fill"
+                                        style="font-size:0.6rem; margin-right:-1rem;"></i>
+                                    Service Section
+                                </a>
+                            </li>
+
+                            {{-- Instruction Section --}}
+                            {{-- <li class="nav-item">
+                                <a href="{{ route('cms.testimonials.index') }}"
+                                    class="nav-link {{ request()->routeIs('cms.testimonials.*') ? 'active' : '' }}"
+                                    data-key="t-testimonials" style="white-space: nowrap">
+                                    <i class="ri-checkbox-blank-circle-fill"
+                                                    style="font-size:0.6rem; margin-right:-0.6rem;"></i>
+                                    Instruction Section
+                                </a>
+                            </li> --}}
+
+                            {{-- Trading Section --}}
+                            {{-- <li class="nav-item">
+                                <a href="{{ route('cms.testimonials.index') }}"
+                                    class="nav-link {{ request()->routeIs('cms.testimonials.*') ? 'active' : '' }}"
+                                    data-key="t-testimonials" style="white-space: nowrap">
+                                    <i class="ri-checkbox-blank-circle-fill"
+                                                    style="font-size:0.6rem; margin-right:-0.6rem;"></i>
+                                    Trading Section
+                                </a>
+                            </li> --}}
+                        </ul>
+                    </div>
                 </li>
 
                 <hr>
