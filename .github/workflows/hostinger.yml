@@ -1,4 +1,4 @@
-name: Softvence
+name: hostinger
 on:
   push:
     branches:
