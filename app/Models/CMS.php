@@ -14,29 +14,39 @@ class CMS extends Model {
     protected $table = 'c_m_s';
 
     protected $fillable = [
+        'id',
         'section',
         'title',
         'sub_title',
+        'description',
         'content',
         'image',
         'items',
+        'status',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     protected $casts = [
-        'id'         => 'integer',
-        'section'    => 'string',
-        'title'      => 'string',
-        'sub_title'  => 'string',
-        'content'    => 'string',
-        'image'      => 'string',
-        'items'      => 'array',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'id'          => 'integer',
+        'section'     => 'string',
+        'title'       => 'string',
+        'sub_title'   => 'string',
+        'description' => 'string',
+        'content'     => 'string',
+        'image'       => 'string',
+        'items'       => 'array',
+        'status'      => 'string',
+        'created_at'  => 'datetime',
+        'updated_at'  => 'datetime',
+        'deleted_at'  => 'datetime',
     ];
 
     protected static function boot(): void {

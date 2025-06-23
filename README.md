@@ -17,14 +17,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 ## [Live Link (Backend) Victoriyah](https://admin.gogobarter.com)
 
 ---
----
----
-
-## [Live Link (Frontend) Client Server](https://gogobarter.com)
-
-## [Live Link (Backend) Client Server](https://admin.gogobarter.com)
-
----
 
 > ---
 >

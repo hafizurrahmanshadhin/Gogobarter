@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\CMSSeeder;
 use Database\Seeders\ContentSeeder;
 use Database\Seeders\DynamicPageSeeder;
 use Database\Seeders\SocialMediaSeeder;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder {
             DynamicPageSeeder::class,
             SocialMediaSeeder::class,
             ContentSeeder::class,
+            CMSSeeder::class,
         ]);
     }
 }

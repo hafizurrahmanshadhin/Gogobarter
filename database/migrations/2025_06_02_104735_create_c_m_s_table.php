@@ -12,14 +12,18 @@ return new class extends Migration {
         Schema::create('c_m_s', function (Blueprint $table) {
             $table->id();
 
-            $table->enum('section', ['hero', 'service', 'instruction', 'trading'])->nullable(false)->index();
+            $table->enum('section', ['hero', 'service', 'instruction', 'instruction_banner', 'trading'])->nullable(false)->index();
             $table->string('title')->nullable();
             $table->string('sub_title')->nullable();
+            $table->text('description')->nullable();
             $table->text('content')->nullable();
             $table->string('image')->nullable();
             $table->json('items')->nullable();
 
-            $table->timestamps();
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->softDeletes();
         });
     }
 

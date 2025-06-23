@@ -1,6 +1,6 @@
 @extends('backend.app')
 
-@section('title', 'Home Page | Hero Section')
+@section('title', 'Home Page | Trading Section')
 
 @section('content')
     <div class="page-content">
@@ -9,8 +9,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <form method="POST" action="{{ route('home-page.hero-section.update') }}"
-                                enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('home-page.trading.update') }}">
                                 @csrf
                                 @method('PATCH')
                                 <div class="row gy-4">
@@ -19,7 +18,7 @@
                                             <label for="title" class="form-label">Title:</label>
                                             <input type="text" class="form-control @error('title') is-invalid @enderror"
                                                 name="title" id="title" placeholder="Please Enter Title"
-                                                value="{{ old('title', $heroSection->title ?? '') }}">
+                                                value="{{ old('title', $tradingSection->title ?? '') }}">
                                             @error('title')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -27,10 +26,10 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <label for="content" class="form-label">Content:</label>
-                                        <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content"
-                                            placeholder="Please Insert Content Description">{{ old('content', $heroSection->content ?? '') }}</textarea>
-                                        @error('content')
+                                        <label for="description" class="form-label">Description:</label>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                                            placeholder="About System...">{{ old('description', $tradingSection->description ?? '') }}</textarea>
+                                        @error('description')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -51,7 +50,7 @@
 @push('scripts')
     <script>
         ClassicEditor
-            .create(document.querySelector('#content'))
+            .create(document.querySelector('#description'))
             .catch(error => {
                 console.error(error);
             });

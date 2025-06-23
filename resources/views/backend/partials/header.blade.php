@@ -21,32 +21,6 @@
         <div class="layout-width">
             <div class="navbar-header">
                 <div class="d-flex">
-                    {{-- LOGO --}}
-                    <div class="navbar-brand-box horizontal-logo">
-                        <a href="{{ route('dashboard') }}" class="logo logo-dark">
-                            <span class="logo-sm">
-                                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo"
-                                    height="22" style="height: 50px;">
-                            </span>
-                            <span class="logo-lg">
-                                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo"
-                                    height="22" style="height: 50px;">
-                            </span>
-                        </a>
-
-                        <a href="{{ route('dashboard') }}" class="logo logo-light">
-                            <span class="logo-sm">
-                                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo"
-                                    height="22" style="height: 50px;">
-                            </span>
-                            <span class="logo-lg">
-                                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo"
-                                    height="22" style="height: 50px;">
-                            </span>
-                        </a>
-                    </div>
-                    {{-- LOGO --}}
-
                     <div class="header-item flex-shrink-0 me-3 vertical-btn-wrapper">
                         <button type="button"
                             class="btn btn-sm px-0 fs-xl vertical-menu-btn topnav-hamburger border hamburger-icon"
@@ -60,28 +34,6 @@
                 </div>
 
                 <div class="d-flex align-items-center">
-                    <div class="ms-1 header-item d-none d-sm-flex">
-                        <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle"
-                            data-toggle="fullscreen">
-                            <i class='bx bx-fullscreen fs-3xl'></i>
-                        </button>
-                    </div>
-
-                    <div class="dropdown topbar-head-dropdown ms-1 header-item">
-                        <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle mode-layout"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="bx bx-sun align-middle fs-3xl"></i>
-                        </button>
-                        <div class="dropdown-menu p-2 dropdown-menu-end" id="light-dark-mode">
-                            <a href="#!" class="dropdown-item" data-mode="light"><i
-                                    class="bx bx-sun align-middle me-2"></i> Default (light mode)</a>
-                            <a href="#!" class="dropdown-item" data-mode="dark"><i
-                                    class="bx bx-moon align-middle me-2"></i> Dark</a>
-                            <a href="#!" class="dropdown-item" data-mode="auto"><i
-                                    class="bx bx-desktop align-middle me-2"></i> Auto (system default)</a>
-                        </div>
-                    </div>
-
                     <div class="dropdown ms-sm-3 header-item">
                         <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

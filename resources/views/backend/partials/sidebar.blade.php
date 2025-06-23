@@ -11,22 +11,7 @@
 <div class="app-menu navbar-menu">
     {{-- Logo & Toggle Button --}}
     <div class="navbar-brand-box">
-        <a href="{{ route('dashboard') }}" class="logo logo-dark">
-            <span class="logo-sm">
-                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
-                    style="width: 200px; height: 60px;">
-            </span>
-            <span class="logo-lg">
-                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
-                    style="width: 200px; height: 60px;">
-            </span>
-        </a>
-
         <a href="{{ route('dashboard') }}" class="logo logo-light">
-            <span class="logo-sm">
-                <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
-                    style="width: 200px; height: 60px;">
-            </span>
             <span class="logo-lg">
                 <img src="{{ asset($systemSetting->logo ?? 'frontend/Logo.png') }}" alt="Logo" height="22"
                     style="width: 200px; height: 60px;">
@@ -100,26 +85,26 @@
                             </li>
 
                             {{-- Instruction Section --}}
-                            {{-- <li class="nav-item">
-                                <a href="{{ route('cms.testimonials.index') }}"
-                                    class="nav-link {{ request()->routeIs('cms.testimonials.*') ? 'active' : '' }}"
-                                    data-key="t-testimonials" style="white-space: nowrap">
+                            <li class="nav-item">
+                                <a href="{{ route('home-page.instruction.index') }}"
+                                    class="nav-link {{ request()->routeIs('home-page.instruction.*') ? 'active' : '' }}"
+                                    data-key="t-instruction" style="white-space: nowrap">
                                     <i class="ri-checkbox-blank-circle-fill"
-                                                    style="font-size:0.6rem; margin-right:-0.6rem;"></i>
+                                        style="font-size:0.6rem; margin-right:-1rem;"></i>
                                     Instruction Section
                                 </a>
-                            </li> --}}
+                            </li>
 
                             {{-- Trading Section --}}
-                            {{-- <li class="nav-item">
-                                <a href="{{ route('cms.testimonials.index') }}"
-                                    class="nav-link {{ request()->routeIs('cms.testimonials.*') ? 'active' : '' }}"
-                                    data-key="t-testimonials" style="white-space: nowrap">
+                            <li class="nav-item">
+                                <a href="{{ route('home-page.trading.index') }}"
+                                    class="nav-link {{ request()->routeIs('home-page.trading.*') ? 'active' : '' }}"
+                                    data-key="t-trading" style="white-space: nowrap">
                                     <i class="ri-checkbox-blank-circle-fill"
-                                                    style="font-size:0.6rem; margin-right:-0.6rem;"></i>
+                                        style="font-size:0.6rem; margin-right:-1rem;"></i>
                                     Trading Section
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
                 </li>

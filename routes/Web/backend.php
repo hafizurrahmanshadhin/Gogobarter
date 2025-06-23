@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Web\Backend\CMS\HomePageHeroSectionController;
+use App\Http\Controllers\Web\Backend\CMS\HomePageInstructionSectionController;
 use App\Http\Controllers\Web\Backend\CMS\HomePageServiceSectionController;
+use App\Http\Controllers\Web\Backend\CMS\HomePageTradingSectionController;
 use App\Http\Controllers\Web\Backend\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +19,19 @@ Route::prefix('cms')->group(function () {
         });
 
         Route::controller(HomePageServiceSectionController::class)->prefix('service')->name('service.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::patch('/', 'update')->name('update');
+        });
+
+        Route::controller(HomePageInstructionSectionController::class)->prefix('instruction')->name('instruction.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::patch('/', 'update')->name('update');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::put('/update/{id}', 'updateInstruction')->name('update-instruction');
+            Route::get('/status/{id}', 'status')->name('status');
+        });
+
+        Route::controller(HomePageTradingSectionController::class)->prefix('trading')->name('trading.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::patch('/', 'update')->name('update');
         });
