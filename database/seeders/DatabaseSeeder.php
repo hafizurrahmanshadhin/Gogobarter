@@ -6,6 +6,7 @@ use Database\Seeders\CMSSeeder;
 use Database\Seeders\ContentSeeder;
 use Database\Seeders\DynamicPageSeeder;
 use Database\Seeders\SocialMediaSeeder;
+use Database\Seeders\SubscriptionPlanSeeder;
 use Database\Seeders\SystemSettingSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder {
             SocialMediaSeeder::class,
             ContentSeeder::class,
             CMSSeeder::class,
+            SubscriptionPlanSeeder::class,
         ]);
     }
 }

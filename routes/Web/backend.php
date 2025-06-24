@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\Backend\DashboardController;
+use App\Http\Controllers\Web\Backend\SubscriptionPlanController;
 use App\Http\Controllers\Web\Backend\CMS\HomePageHeroSectionController;
-use App\Http\Controllers\Web\Backend\CMS\HomePageInstructionSectionController;
 use App\Http\Controllers\Web\Backend\CMS\HomePageServiceSectionController;
 use App\Http\Controllers\Web\Backend\CMS\HomePageTradingSectionController;
-use App\Http\Controllers\Web\Backend\DashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\Backend\CMS\HomePageInstructionSectionController;
 
 // Route for Admin Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -36,4 +37,12 @@ Route::prefix('cms')->group(function () {
             Route::patch('/', 'update')->name('update');
         });
     });
+});
+
+// Subscription Plan
+Route::controller(SubscriptionPlanController::class)->prefix('subscription-plan')->name('subscription-plan.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::patch('/update/{id}', 'update')->name('edit');
+    Route::patch('/{subscription_plan}/toggle-status', 'toggleStatus')->name('toggle-status');
+    Route::patch('/{subscription_plan}/toggle-recommended', 'toggleRecommended')->name('toggle-recommended');
 });

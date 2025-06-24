@@ -48,6 +48,24 @@
                     </a>
                 </li>
 
+                {{-- Subscription Plan --}}
+                <li class="nav-item">
+                    <a href="{{ route('subscription-plan.index') }}"
+                        class="nav-link menu-link {{ request()->routeIs('subscription-plan.*') ? 'active' : '' }}">
+                        <i class="ri-dashboard-line"></i>
+                        <span data-key="t-subscription-plan">Subscription Plan</span>
+                    </a>
+                </li>
+
+                {{-- Product Categories --}}
+                <li class="nav-item">
+                    <a href="{{ route('subscription-plan.index') }}"
+                        class="nav-link menu-link {{ request()->routeIs('subscription-plan.*') ? 'active' : '' }}">
+                        <i class="ri-dashboard-line"></i>
+                        <span data-key="t-subscription-plan">Product Categories</span>
+                    </a>
+                </li>
+
 
                 {{-- CMS --}}
                 <li class="nav-item">
