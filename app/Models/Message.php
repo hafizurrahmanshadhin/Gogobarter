@@ -12,20 +12,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Message extends Model {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'messages';
+
     /**
-     ** The attributes that are mass assignable.
+     * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'sender_id',
         'receiver_id',
         'text',
+        'attachments',
         'status',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
-     *? The attributes that should be cast to native types.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
@@ -34,6 +41,7 @@ class Message extends Model {
         'sender_id'   => 'integer',
         'receiver_id' => 'integer',
         'text'        => 'string',
+        'attachments' => 'array',
         'status'      => 'string',
         'created_at'  => 'datetime',
         'updated_at'  => 'datetime',
@@ -41,21 +49,21 @@ class Message extends Model {
     ];
 
     /**
-     ** Get the sender of the message.
+     * Get the sender of the message.
      */
     public function sender(): BelongsTo {
         return $this->belongsTo(User::class, 'sender_id');
     }
 
     /**
-     ** Get the receiver of the message.
+     * Get the receiver of the message.
      */
     public function receiver(): BelongsTo {
         return $this->belongsTo(User::class, 'receiver_id');
     }
 
     /**
-     *! Scope a query to only include active messages.
+     * Scope a query to only include active messages.
      *
      * @param Builder $query
      * @return Builder
@@ -65,7 +73,7 @@ class Message extends Model {
     }
 
     /**
-     *! Scope a query to only include inactive messages.
+     * Scope a query to only include inactive messages.
      *
      * @param Builder $query
      * @return Builder
@@ -75,7 +83,7 @@ class Message extends Model {
     }
 
     /**
-     *? Mark the message as inactive.
+     * Mark the message as inactive.
      *
      * @return void
      */
@@ -84,7 +92,7 @@ class Message extends Model {
     }
 
     /**
-     *? Mark the message as active.
+     * Mark the message as active.
      *
      * @return void
      */

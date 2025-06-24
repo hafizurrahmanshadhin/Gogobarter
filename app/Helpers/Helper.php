@@ -20,27 +20,60 @@ class Helper {
      */
     public static function fileUpload($file, string $folder, string $name = null): ?string {
         if (!$file || !$file->isValid()) {
-            Log::error('File is not valid.');
+            Log::error('File is not valid.', [
+                'file_error' => $file ? $file->getErrorMessage() : 'No file provided'
+            ]);
             return null;
         }
 
-        // Append a unique identifier to the file name
-        $uniqueId  = Str::random(10);
-        $imageName = ($name ? Str::slug($name) : $uniqueId) . '_' . time() . '.' . $file->extension();
-        $path      = public_path('uploads/' . $folder);
-        if (!file_exists($path)) {
-            if (!mkdir($path, 0755, true) && !is_dir($path)) {
-                Log::error('Failed to create directory: ' . $path);
-                return null;
-            }
-        }
-
         try {
-            $file->move($path, $imageName);
-            Log::info('File uploaded successfully to: ' . $path . '/' . $imageName);
-            return 'uploads/' . $folder . '/' . $imageName;
+            // Get file info before moving (to avoid temp file issues)
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $fileSize = $file->getSize();
+
+            // Fallback to file extension from original name if getClientOriginalExtension fails
+            if (empty($extension)) {
+                $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+            }
+
+            // Generate unique filename
+            $uniqueId = Str::random(10);
+            $imageName = ($name ? Str::slug($name) : $uniqueId) . '_' . time() . ($extension ? '.' . $extension : '');
+
+            // Create the full directory path
+            $directory = 'uploads/' . $folder;
+            $fullPath = public_path($directory);
+
+            // Create directory if it doesn't exist
+            if (!file_exists($fullPath)) {
+                if (!mkdir($fullPath, 0755, true) && !is_dir($fullPath)) {
+                    Log::error('Failed to create directory: ' . $fullPath);
+                    return null;
+                }
+            }
+
+            // Move the file
+            $file->move($fullPath, $imageName);
+
+            $relativePath = $directory . '/' . $imageName;
+
+            Log::info('File uploaded successfully', [
+                'original_name' => $originalName,
+                'new_name' => $imageName,
+                'path' => $relativePath,
+                'size' => $fileSize
+            ]);
+
+            return $relativePath;
         } catch (Exception $e) {
-            Log::error('File upload error: ' . $e->getMessage());
+            Log::error('File upload error: ' . $e->getMessage(), [
+                'exception' => $e,
+                'file_info' => [
+                    'original_name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize()
+                ]
+            ]);
             return null;
         }
     }
@@ -52,9 +85,11 @@ class Helper {
      * @return void
      */
     public static function fileDelete(string $path): void {
-        if (file_exists($path)) {
+        $fullPath = public_path($path);
+
+        if (file_exists($fullPath)) {
             try {
-                unlink($path);
+                unlink($fullPath);
                 Log::info('File deleted successfully: ' . $path);
             } catch (Exception $e) {
                 Log::error('File deletion error: ' . $e->getMessage());
@@ -75,7 +110,7 @@ class Helper {
         $slug = Str::slug($title);
         while ($model::where('slug', $slug)->exists()) {
             $randomString = Str::random(5);
-            $slug         = Str::slug($title) . '-' . $randomString;
+            $slug = Str::slug($title) . '-' . $randomString;
         }
         return $slug;
     }
@@ -91,9 +126,9 @@ class Helper {
      */
     public static function jsonResponse(bool $status, string $message, int $code, $data = null, $errors = null): JsonResponse {
         $response = [
-            'status'  => $status,
+            'status' => $status,
             'message' => $message,
-            'code'    => $code,
+            'code' => $code,
         ];
 
         if ($data !== null) {

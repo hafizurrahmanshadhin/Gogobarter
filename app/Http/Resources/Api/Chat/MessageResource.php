@@ -23,6 +23,7 @@ class MessageResource extends JsonResource {
                 'name'   => $this->sender->name,
                 'avatar' => $this->sender->avatar,
             ],
+            'attachments' => $this->attachments ?? [],
             'created_at'  => $this->created_at,
         ];
     }

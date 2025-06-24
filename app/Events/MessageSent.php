@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\Api\Chat\MessageResource;
 use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -12,34 +13,21 @@ use Illuminate\Queue\SerializesModels;
 class MessageSent implements ShouldBroadcastNow {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Message $message;
+    public MessageResource $message;
 
     public function __construct(Message $message) {
-        $this->message = $message;
+        $message->load('sender:id,name,avatar');
+        $this->message = new MessageResource($message);
     }
 
-    /**
-     *! Determine the channels the event should broadcast on.
-     *
-     * @return array The list of channels where this event will be broadcasted.
-     */
     public function broadcastOn(): array {
-        //* Broadcasts to a private channel specific to the receiver of the message
         return [
             new PrivateChannel("chat.{$this->message->receiver_id}"),
-
-            //! Broadcasts to a private channel specific to the sender of the message
-            // new PrivateChannel("chat.{$this->message->sender_id}"),
+            new PrivateChannel("chat.{$this->message->sender_id}"),
         ];
     }
 
-    /**
-     *! Define a custom broadcast event name.
-     *
-     * @return string The custom event name for the broadcast.
-     */
-    // public function broadcastAs(): string {
-    //     //* Sets the event name as 'message.sent' for frontend listeners
-    //     return 'message.sent';
-    // }
+    public function broadcastWith(): array {
+        return ['message' => $this->message];
+    }
 }
