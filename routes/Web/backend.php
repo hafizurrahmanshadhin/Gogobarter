@@ -1,15 +1,33 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Web\Backend\DashboardController;
-use App\Http\Controllers\Web\Backend\SubscriptionPlanController;
 use App\Http\Controllers\Web\Backend\CMS\HomePageHeroSectionController;
+use App\Http\Controllers\Web\Backend\CMS\HomePageInstructionSectionController;
 use App\Http\Controllers\Web\Backend\CMS\HomePageServiceSectionController;
 use App\Http\Controllers\Web\Backend\CMS\HomePageTradingSectionController;
-use App\Http\Controllers\Web\Backend\CMS\HomePageInstructionSectionController;
+use App\Http\Controllers\Web\Backend\DashboardController;
+use App\Http\Controllers\Web\Backend\ProductCategoryController;
+use App\Http\Controllers\Web\Backend\SubscriptionPlanController;
+use Illuminate\Support\Facades\Route;
 
 // Route for Admin Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Subscription Plan
+Route::controller(SubscriptionPlanController::class)->prefix('subscription-plan')->name('subscription-plan.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::patch('/update/{id}', 'update')->name('edit');
+    Route::patch('/{subscription_plan}/toggle-status', 'toggleStatus')->name('toggle-status');
+    Route::patch('/{subscription_plan}/toggle-recommended', 'toggleRecommended')->name('toggle-recommended');
+});
+
+// Route for Product Category Backend
+Route::controller(ProductCategoryController::class)->group(function () {
+    Route::get('/product-category', 'index')->name('product-category.index');
+    Route::post('/product-category/store', 'store')->name('product-category.store');
+    Route::put('/product-category/update/{id}', 'update')->name('product-category.update');
+    Route::get('/product-category/status/{id}', 'status')->name('product-category.status');
+    Route::delete('/product-category/destroy/{id}', 'destroy')->name('product-category.destroy');
+});
 
 // CMS
 Route::prefix('cms')->group(function () {
@@ -37,12 +55,4 @@ Route::prefix('cms')->group(function () {
             Route::patch('/', 'update')->name('update');
         });
     });
-});
-
-// Subscription Plan
-Route::controller(SubscriptionPlanController::class)->prefix('subscription-plan')->name('subscription-plan.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::patch('/update/{id}', 'update')->name('edit');
-    Route::patch('/{subscription_plan}/toggle-status', 'toggleStatus')->name('toggle-status');
-    Route::patch('/{subscription_plan}/toggle-recommended', 'toggleRecommended')->name('toggle-recommended');
 });

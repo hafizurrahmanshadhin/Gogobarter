@@ -52,17 +52,17 @@
                 <li class="nav-item">
                     <a href="{{ route('subscription-plan.index') }}"
                         class="nav-link menu-link {{ request()->routeIs('subscription-plan.*') ? 'active' : '' }}">
-                        <i class="ri-dashboard-line"></i>
+                        <i class="ri-price-tag-3-line"></i>
                         <span data-key="t-subscription-plan">Subscription Plan</span>
                     </a>
                 </li>
 
                 {{-- Product Categories --}}
                 <li class="nav-item">
-                    <a href="{{ route('subscription-plan.index') }}"
-                        class="nav-link menu-link {{ request()->routeIs('subscription-plan.*') ? 'active' : '' }}">
-                        <i class="ri-dashboard-line"></i>
-                        <span data-key="t-subscription-plan">Product Categories</span>
+                    <a href="{{ route('product-category.index') }}"
+                        class="nav-link menu-link {{ request()->routeIs('product-category.*') ? 'active' : '' }}">
+                        <i class="ri-apps-2-line"></i>
+                        <span data-key="t-product-category">Product Categories</span>
                     </a>
                 </li>
 
