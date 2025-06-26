@@ -8,9 +8,17 @@ use App\Http\Requests\Api\Product\StoreProductRequest;
 use App\Http\Resources\Api\Product\ProductResource;
 use App\Models\Product;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller {
-    public function store(StoreProductRequest $request) {
+    /**
+     * Store a new product
+     *
+     * @param StoreProductRequest $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function store(StoreProductRequest $request): JsonResponse {
         try {
             $imagePaths = [];
             if ($request->hasFile('images')) {
