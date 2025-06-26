@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider {
      * Bootstrap any application services.
      */
     public function boot() {
-        //
+        // Artisan::command('migrate:fresh', function () {
+        //     $this->error('migrate:fresh is disabled.');
+        // });
     }
 }
