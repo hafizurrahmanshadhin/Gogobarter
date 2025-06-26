@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ContentController;
+use App\Http\Controllers\Api\HeaderAndFooterController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
@@ -12,5 +13,6 @@ Route::get('contents', [ContentController::class, 'index'])->middleware(['thrott
 
 Route::get('/subscription-plans/list', [SubscriptionPlanController::class, 'index']);
 Route::get('/product-categories/list', [ProductCategoryController::class, 'index']);
+Route::get('/header-footer', HeaderAndFooterController::class);
 Route::get('/home', [HomeController::class, 'index']);
 Route::post('/product/store', [ProductController::class, 'store'])->middleware('auth.jwt');

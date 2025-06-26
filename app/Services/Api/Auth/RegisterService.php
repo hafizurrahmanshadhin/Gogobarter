@@ -21,6 +21,8 @@ class RegisterService {
             $user = User::create([
                 'name'                 => $data['name'],
                 'email'                => $data['email'],
+                'phone_number'         => $data['phone_number'],
+                'address'              => $data['address'],
                 'password'             => bcrypt($data['password']),
                 'terms_and_conditions' => $data['terms_and_conditions'],
             ]);
