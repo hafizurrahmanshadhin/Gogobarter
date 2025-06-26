@@ -11,11 +11,13 @@ return new class extends Migration {
             $table->string('name')->nullable(false);
             $table->string('email')->unique()->nullable(false);
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('password')->nullable(false);
             $table->boolean('terms_and_conditions')->default(false)->nullable(false);
             $table->string('avatar')->nullable();
             $table->string('cover_photo')->nullable();
             $table->dateTime('date_of_birth')->nullable();
+            $table->string('address')->nullable();
             $table->timestamp('otp_verified_at')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->enum('status', ['active', 'inactive'])->default('active');

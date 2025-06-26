@@ -6,6 +6,7 @@ use Database\Seeders\CMSSeeder;
 use Database\Seeders\ContentSeeder;
 use Database\Seeders\DynamicPageSeeder;
 use Database\Seeders\ProductCategorySeeder;
+use Database\Seeders\ProductSeeder;
 use Database\Seeders\SocialMediaSeeder;
 use Database\Seeders\SubscriptionPlanSeeder;
 use Database\Seeders\SystemSettingSeeder;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder {
             CMSSeeder::class,
             SubscriptionPlanSeeder::class,
             ProductCategorySeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

@@ -31,12 +31,22 @@ class HomeResource extends JsonResource {
             );
         }
 
+        // Handle paginated products
+        $featuredItems = FeatureItemResource::collection($this->featured_items);
+        $pagination    = [
+            'current_page' => $this->featured_items->currentPage(),
+            'last_page'    => $this->featured_items->lastPage(),
+            'per_page'     => $this->featured_items->perPage(),
+            'total'        => $this->featured_items->total(),
+        ];
+
         return [
-            'hero_section'    => $this->hero_section ? new HeroSectionResource($this->hero_section) : null,
-            'featured_items'  => FeatureItemResource::collection($this->featured_items),
-            'service_section' => $this->service_section ? new ServiceSectionResource($this->service_section) : [],
-            'how_it_works'    => $howItWorks,
-            'trading_section' => $this->trading_section ? new TradingSectionResource($this->trading_section) : null,
+            'hero_section'              => $this->hero_section ? new HeroSectionResource($this->hero_section) : null,
+            'featured_items'            => $featuredItems,
+            'featured_items_pagination' => $pagination,
+            'service_section'           => $this->service_section ? new ServiceSectionResource($this->service_section) : [],
+            'how_it_works'              => $howItWorks,
+            'trading_section'           => $this->trading_section ? new TradingSectionResource($this->trading_section) : null,
         ];
     }
 }

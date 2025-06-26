@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 class HomeController extends Controller {
     public function index(): JsonResponse {
         try {
-            $products = Product::where('status', 'active')->paginate(12);
+            $products = Product::with('user')->where('status', 'active')->paginate(12);
 
             $heroSection        = CMS::where('section', 'hero')->where('status', 'active')->first();
             $serviceSection     = CMS::where('section', 'service')->where('status', 'active')->first();
