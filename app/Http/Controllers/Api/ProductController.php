@@ -140,4 +140,31 @@ class ProductController extends Controller {
             ]);
         }
     }
+
+    /**
+     * Get the list of favorite products for the authenticated user
+     *
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function favoriteList(): JsonResponse {
+        try {
+            $user      = Auth::user();
+            $favorites = $user->favorites()->with('user')->latest()->paginate(8);
+
+            return Helper::jsonResponse(true, 'Favorite products fetched successfully.', 200, [
+                'products'   => FeatureItemResource::collection($favorites),
+                'pagination' => [
+                    'current_page' => $favorites->currentPage(),
+                    'last_page'    => $favorites->lastPage(),
+                    'per_page'     => $favorites->perPage(),
+                    'total'        => $favorites->total(),
+                ],
+            ]);
+        } catch (Exception $e) {
+            return Helper::jsonResponse(false, 'Failed to fetch favorites.', 500, [
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\HeaderAndFooterController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SubscriptionPlanController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +18,12 @@ Route::get('/header-footer', HeaderAndFooterController::class);
 Route::get('/home', [HomeController::class, 'index'])->middleware('is_favorite');
 Route::get('/home/search', [HomeController::class, 'search'])->middleware('is_favorite');
 Route::get('/home/products/filter', [HomeController::class, 'filterByCategory'])->middleware('is_favorite');
-Route::get('/home/product/details/{id}', [HomeController::class, 'show']);
+Route::get('/home/product/details/{id}', [HomeController::class, 'show'])->middleware('is_favorite');
 Route::post('/product/store', [ProductController::class, 'store'])->middleware('auth.jwt');
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->middleware('auth.jwt');
 Route::get('/dashboard/my-products', [ProductController::class, 'myProducts'])->middleware('auth.jwt');
 Route::post('/product/toggle-favorite/{id}', [ProductController::class, 'toggleFavorite'])->middleware('auth.jwt');
+Route::get('/dashboard/favorites/list', [ProductController::class, 'favoriteList'])->middleware('auth.jwt');
+
+// User Profile Update
+Route::post('/dashboard/profile/update', [ProfileController::class, 'updateProfile'])->middleware('auth.jwt');

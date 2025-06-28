@@ -7,14 +7,10 @@ use App\Models\ProductCategory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<\App\Models\Product>
- */
 class ProductFactory extends Factory {
     protected $model = Product::class;
 
     public function definition(): array {
-        // Generate between 2 and 5 fake image URLs from picsum.photos
         $images     = [];
         $imageCount = $this->faker->numberBetween(2, 5);
         for ($i = 0; $i < $imageCount; $i++) {

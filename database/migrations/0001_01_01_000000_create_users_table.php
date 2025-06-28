@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->boolean('terms_and_conditions')->default(false)->nullable(false);
             $table->string('avatar')->nullable();
             $table->string('cover_photo')->nullable();
-            $table->dateTime('date_of_birth')->nullable();
             $table->string('address')->nullable();
             $table->timestamp('otp_verified_at')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');

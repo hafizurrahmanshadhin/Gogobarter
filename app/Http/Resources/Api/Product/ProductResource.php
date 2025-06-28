@@ -12,6 +12,17 @@ class ProductResource extends JsonResource {
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array {
+        $images = [];
+        if (is_array($this->images)) {
+            foreach ($this->images as $img) {
+                if (str_starts_with($img, 'http://') || str_starts_with($img, 'https://')) {
+                    $images[] = $img;
+                } else {
+                    $images[] = asset($img);
+                }
+            }
+        }
+
         return [
             'id'                  => $this->id,
             'user_id'             => $this->user_id,
@@ -19,7 +30,7 @@ class ProductResource extends JsonResource {
             'name'                => $this->name,
             'description'         => $this->description,
             'condition'           => $this->condition,
-            'images'              => $this->images,
+            'images'              => $images,
         ];
     }
 }

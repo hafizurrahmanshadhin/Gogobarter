@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Database\Seeders\CMSSeeder;
 use Database\Seeders\ContentSeeder;
 use Database\Seeders\DynamicPageSeeder;
+use Database\Seeders\FavoriteSeeder;
 use Database\Seeders\ProductCategorySeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\SocialMediaSeeder;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder {
             SubscriptionPlanSeeder::class,
             ProductCategorySeeder::class,
             ProductSeeder::class,
+            FavoriteSeeder::class,
         ]);
     }
 }

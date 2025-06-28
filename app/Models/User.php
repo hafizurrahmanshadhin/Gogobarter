@@ -32,7 +32,6 @@ class User extends Authenticatable implements JWTSubject {
             'terms_and_conditions' => 'boolean',
             'avatar'               => 'string',
             'cover_photo'          => 'string',
-            'date_of_birth'        => 'datetime',
             'otp_verified_at'      => 'datetime',
             'role'                 => 'string',
             'status'               => 'string',
