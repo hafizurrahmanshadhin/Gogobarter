@@ -91,9 +91,49 @@ class ProductController extends Controller {
     public function myProducts(): JsonResponse {
         try {
             $user     = Auth::user();
-            $products = $user->products()->with('user')->latest()->get();
+            $products = $user->products()->with('user')->latest()->paginate(8);
 
-            return Helper::jsonResponse(true, 'My products fetched successfully.', 200, FeatureItemResource::collection($products));
+            return Helper::jsonResponse(true, 'My products fetched successfully.', 200, [
+                'products'   => FeatureItemResource::collection($products),
+                'pagination' => [
+                    'current_page' => $products->currentPage(),
+                    'last_page'    => $products->lastPage(),
+                    'per_page'     => $products->perPage(),
+                    'total'        => $products->total(),
+                ],
+            ]);
+        } catch (Exception $e) {
+            return Helper::jsonResponse(false, 'An error occurred', 500, [
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * Toggle favorite status for a product
+     *
+     * @param int $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function toggleFavorite(int $id): JsonResponse {
+        try {
+            $user    = Auth::user();
+            $product = Product::where('status', 'active')->findOrFail($id);
+
+            $isFavorite = $user->favorites()->where('product_id', $id)->exists();
+
+            if ($isFavorite) {
+                $user->favorites()->detach($id);
+                $message  = 'Product removed from favorites.';
+                $favorite = false;
+            } else {
+                $user->favorites()->attach($id);
+                $message  = 'Product added to favorites.';
+                $favorite = true;
+            }
+
+            return Helper::jsonResponse(true, $message, 200);
         } catch (Exception $e) {
             return Helper::jsonResponse(false, 'An error occurred', 500, [
                 'error' => $e->getMessage(),

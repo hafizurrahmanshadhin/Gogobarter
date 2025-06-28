@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -77,5 +78,9 @@ class User extends Authenticatable implements JWTSubject {
 
     public function products(): HasMany {
         return $this->hasMany(Product::class);
+    }
+
+    public function favorites(): BelongsToMany {
+        return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
     }
 }

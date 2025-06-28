@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\Home;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class FeatureItemResource extends JsonResource {
     /**
@@ -22,13 +23,21 @@ class FeatureItemResource extends JsonResource {
             }
         }
 
+        // Determine if the product is in the authenticated user's favorites
+        $isFavorite = false;
+        $user       = Auth::user();
+        if ($user) {
+            $isFavorite = $user->favorites()->where('product_id', $this->id)->exists();
+        }
+
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'image'      => $image,
-            'condition'  => $this->condition,
-            'address'    => $this->user ? $this->user->address : null,
-            'created_at' => $this->created_at ? $this->created_at->diffForHumans() : null,
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'image'       => $image,
+            'condition'   => $this->condition,
+            'address'     => $this->user ? $this->user->address : null,
+            'created_at'  => $this->created_at ? $this->created_at->diffForHumans() : null,
+            'is_favorite' => $isFavorite,
         ];
     }
 }

@@ -14,10 +14,11 @@ Route::get('contents', [ContentController::class, 'index'])->middleware(['thrott
 Route::get('/subscription-plans/list', [SubscriptionPlanController::class, 'index']);
 Route::get('/product-categories/list', [ProductCategoryController::class, 'index']);
 Route::get('/header-footer', HeaderAndFooterController::class);
-Route::get('/home', [HomeController::class, 'index']);
-Route::get('/home/search', [HomeController::class, 'search']);
-Route::get('/home/products/filter', [HomeController::class, 'filterByCategory']);
+Route::get('/home', [HomeController::class, 'index'])->middleware('is_favorite');
+Route::get('/home/search', [HomeController::class, 'search'])->middleware('is_favorite');
+Route::get('/home/products/filter', [HomeController::class, 'filterByCategory'])->middleware('is_favorite');
 Route::get('/home/product/details/{id}', [HomeController::class, 'show']);
 Route::post('/product/store', [ProductController::class, 'store'])->middleware('auth.jwt');
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->middleware('auth.jwt');
 Route::get('/dashboard/my-products', [ProductController::class, 'myProducts'])->middleware('auth.jwt');
+Route::post('/product/toggle-favorite/{id}', [ProductController::class, 'toggleFavorite'])->middleware('auth.jwt');
