@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UpdatePasswordRequest;
 use App\Http\Requests\Api\UpdateProfileRequest;
 use App\Http\Resources\Api\Profile\UpdateProfileResource;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller {
     /**
@@ -43,6 +45,28 @@ class ProfileController extends Controller {
             ]);
         } catch (Exception $e) {
             return Helper::jsonResponse(false, 'Failed to update profile.', 500, [
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * Update the authenticated user's password.
+     *
+     * @param  UpdatePasswordRequest  $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function updatePassword(UpdatePasswordRequest $request): JsonResponse {
+        try {
+            $user = auth()->user();
+
+            $user->password = Hash::make($request->get('new_password'));
+            $user->save();
+
+            return Helper::jsonResponse(true, 'Password updated successfully.', 200);
+        } catch (Exception $e) {
+            return Helper::jsonResponse(false, 'An error occurred', 500, [
                 'error' => $e->getMessage(),
             ]);
         }

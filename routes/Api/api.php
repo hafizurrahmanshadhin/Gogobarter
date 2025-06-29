@@ -25,5 +25,6 @@ Route::get('/dashboard/my-products', [ProductController::class, 'myProducts'])->
 Route::post('/product/toggle-favorite/{id}', [ProductController::class, 'toggleFavorite'])->middleware('auth.jwt');
 Route::get('/dashboard/favorites/list', [ProductController::class, 'favoriteList'])->middleware('auth.jwt');
 
-// User Profile Update
+// User Profile and password Update
 Route::post('/dashboard/profile/update', [ProfileController::class, 'updateProfile'])->middleware('auth.jwt');
+Route::post('/dashboard/password/update', [ProfileController::class, 'updatePassword'])->middleware('auth.jwt');
