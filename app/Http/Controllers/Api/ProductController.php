@@ -62,8 +62,13 @@ class ProductController extends Controller {
 
             $data = $request->only(['name', 'product_category_id', 'description', 'condition']);
 
-            // Handle images if provided
             if ($request->hasFile('images')) {
+                if (!empty($product->images) && is_array($product->images)) {
+                    foreach ($product->images as $oldImage) {
+                        Helper::fileDelete($oldImage);
+                    }
+                }
+
                 $imagePaths = [];
                 foreach ($request->file('images') as $file) {
                     $path = Helper::fileUpload($file, 'products');
