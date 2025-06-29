@@ -21,10 +21,12 @@ Route::get('/home/products/filter', [HomeController::class, 'filterByCategory'])
 Route::get('/home/product/details/{id}', [HomeController::class, 'show'])->middleware('is_favorite');
 Route::post('/product/store', [ProductController::class, 'store'])->middleware('auth.jwt');
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->middleware('auth.jwt');
+Route::delete('products/delete/{id}', [ProductController::class, 'destroy'])->middleware('auth.jwt');
 Route::get('/dashboard/my-products', [ProductController::class, 'myProducts'])->middleware('auth.jwt');
 Route::post('/product/toggle-favorite/{id}', [ProductController::class, 'toggleFavorite'])->middleware('auth.jwt');
 Route::get('/dashboard/favorites/list', [ProductController::class, 'favoriteList'])->middleware('auth.jwt');
 
 // User Profile and password Update
+Route::get('/profile', [ProfileController::class, 'profile'])->middleware('auth.jwt');
 Route::post('/dashboard/profile/update', [ProfileController::class, 'updateProfile'])->middleware('auth.jwt');
 Route::post('/dashboard/password/update', [ProfileController::class, 'updatePassword'])->middleware('auth.jwt');

@@ -83,6 +83,34 @@ class ProductController extends Controller {
     }
 
     /**
+     * Delete a product owned by the authenticated user and its images from storage
+     *
+     * @param int $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function destroy(int $id): JsonResponse {
+        try {
+            $user    = Auth::user();
+            $product = Product::where('user_id', $user->id)->findOrFail($id);
+
+            if (!empty($product->images) && is_array($product->images)) {
+                foreach ($product->images as $imagePath) {
+                    Helper::fileDelete($imagePath);
+                }
+            }
+
+            $product->delete();
+
+            return Helper::jsonResponse(true, 'Product and its images deleted successfully.', 200);
+        } catch (Exception $e) {
+            return Helper::jsonResponse(false, 'Failed to delete product.', 500, [
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
      * Get the authenticated user's products
      *
      * @return JsonResponse

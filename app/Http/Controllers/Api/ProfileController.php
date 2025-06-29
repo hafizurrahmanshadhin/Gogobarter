@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UpdatePasswordRequest;
 use App\Http\Requests\Api\UpdateProfileRequest;
+use App\Http\Resources\Api\Profile\ProfileResource;
 use App\Http\Resources\Api\Profile\UpdateProfileResource;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -13,6 +14,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller {
+    /**
+     * Get the authenticated user's details
+     *
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function profile(): JsonResponse {
+        try {
+            $user = Auth::user();
+            return Helper::jsonResponse(true, 'User details fetched successfully.', 200, new ProfileResource($user));
+        } catch (Exception $e) {
+            return Helper::jsonResponse(false, 'An error occurred', 500, [
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
     /**
      * Update user profile.
      *
