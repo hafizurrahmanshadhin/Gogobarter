@@ -65,7 +65,15 @@ class ProductCategoryController extends Controller {
      */
     public function store(Request $request): JsonResponse {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:product_categories,name',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:product_categories,name',
+                'regex:/[a-zA-Z]/',
+            ],
+        ], [
+            'name.regex' => 'The category name must contain at least one letter.',
         ]);
 
         if ($validator->fails()) {
@@ -92,7 +100,15 @@ class ProductCategoryController extends Controller {
      */
     public function update(Request $request, int $id): JsonResponse {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:product_categories,name,' . $id,
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:product_categories,name,' . $id,
+                'regex:/[a-zA-Z]/',
+            ],
+        ], [
+            'name.regex' => 'The category name must contain at least one letter.',
         ]);
 
         if ($validator->fails()) {

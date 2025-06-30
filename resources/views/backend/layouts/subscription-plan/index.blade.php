@@ -117,37 +117,56 @@
                                     </div>
 
                                     <div class="modal-body">
-                                        {{-- Name --}}
-                                        <div class="mb-3">
-                                            <label class="form-label" for="name{{ $plan->id }}">Plan Name</label>
-                                            <input type="text" name="name" id="name{{ $plan->id }}"
-                                                class="form-control" value="{{ $plan->name }}" required>
+                                        <div class="row">
+                                            {{-- Plan Type --}}
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label" for="plan_type{{ $plan->id }}">Plan
+                                                    Type</label>
+                                                <select name="plan_type" id="plan_type{{ $plan->id }}"
+                                                    class="form-select plan-type-select" data-plan-id="{{ $plan->id }}"
+                                                    required>
+                                                    <option value="free" @selected($plan->price == 0)>Free Plan</option>
+                                                    <option value="paid" @selected($plan->price > 0)>Paid Plan</option>
+                                                </select>
+                                            </div>
+
+                                            {{-- Name --}}
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label" for="name{{ $plan->id }}">Plan Name</label>
+                                                <input type="text" name="name" id="name{{ $plan->id }}"
+                                                    class="form-control" value="{{ $plan->name }}" required>
+                                            </div>
                                         </div>
 
-                                        {{-- Billing Interval --}}
-                                        <div class="mb-3">
-                                            <label class="form-label" for="billing_interval{{ $plan->id }}">Billing
-                                                Interval</label>
-                                            <select name="billing_interval" id="billing_interval{{ $plan->id }}"
-                                                class="form-select" required>
-                                                <option value="month" @selected($plan->billing_interval === 'month')>Month</option>
-                                                <option value="year" @selected($plan->billing_interval === 'year')>Year</option>
-                                            </select>
-                                        </div>
+                                        <div class="row">
+                                            {{-- Billing Interval --}}
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label" for="billing_interval{{ $plan->id }}">Billing
+                                                    Interval</label>
+                                                <select name="billing_interval" id="billing_interval{{ $plan->id }}"
+                                                    class="form-select" required>
+                                                    <option value="month" @selected($plan->billing_interval === 'month')>Month</option>
+                                                    <option value="year" @selected($plan->billing_interval === 'year')>Year</option>
+                                                </select>
+                                            </div>
 
-                                        {{-- Price --}}
-                                        <div class="mb-3">
-                                            <label class="form-label" for="price{{ $plan->id }}">Price</label>
-                                            <input type="number" step="0.01" name="price"
-                                                id="price{{ $plan->id }}" class="form-control"
-                                                value="{{ $plan->price }}" required>
-                                        </div>
+                                            {{-- Price --}}
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label" for="price{{ $plan->id }}">Price</label>
+                                                <input type="number" step="0.01" name="price"
+                                                    id="price{{ $plan->id }}" class="form-control plan-price-input"
+                                                    value="{{ $plan->price }}" min="0" required>
+                                                <input type="hidden" name="price" id="hidden_price{{ $plan->id }}"
+                                                    value="0">
+                                            </div>
 
-                                        {{-- Currency --}}
-                                        <div class="mb-3">
-                                            <label class="form-label" for="currency{{ $plan->id }}">Currency</label>
-                                            <input type="text" name="currency" id="currency{{ $plan->id }}"
-                                                class="form-control" value="{{ $plan->currency }}" required>
+                                            {{-- Currency --}}
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label"
+                                                    for="currency{{ $plan->id }}">Currency</label>
+                                                <input type="text" name="currency" id="currency{{ $plan->id }}"
+                                                    class="form-control" value="{{ $plan->currency }}" required>
+                                            </div>
                                         </div>
 
                                         {{-- Description --}}
@@ -155,26 +174,6 @@
                                             <label class="form-label"
                                                 for="description{{ $plan->id }}">Description</label>
                                             <textarea name="description" id="description{{ $plan->id }}" class="form-control" rows="3">{{ $plan->description }}</textarea>
-                                        </div>
-
-                                        {{-- Status --}}
-                                        <div class="mb-3">
-                                            <label class="form-label" for="status{{ $plan->id }}">Status</label>
-                                            <select name="status" id="status{{ $plan->id }}" class="form-select"
-                                                required>
-                                                <option value="active" @selected($plan->status === 'active')>Active</option>
-                                                <option value="inactive" @selected($plan->status === 'inactive')>Inactive</option>
-                                            </select>
-                                        </div>
-
-                                        {{-- Is Popular --}}
-                                        <div class="mb-3 form-check">
-                                            <input class="form-check-input" type="checkbox" name="is_recommended"
-                                                id="is_recommended{{ $plan->id }}" value="1"
-                                                @checked($plan->is_recommended)>
-                                            <label class="form-check-label" for="is_recommended{{ $plan->id }}">
-                                                Popular?
-                                            </label>
                                         </div>
 
                                         {{-- Features (comma-separated) --}}
@@ -201,3 +200,33 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.plan-type-select').on('change', function() {
+                var planId = $(this).data('plan-id');
+                var type = $(this).val();
+                var priceInput = $('#price' + planId);
+                var hiddenPriceInput = $('#hidden_price' + planId);
+
+                if (type === 'free') {
+                    priceInput.val(0.00);
+                    priceInput.prop('disabled', true);
+                    hiddenPriceInput.prop('disabled', false);
+                } else {
+                    priceInput.prop('disabled', false);
+                    hiddenPriceInput.prop('disabled', true);
+                    if (parseFloat(priceInput.val()) <= 0) {
+                        priceInput.val('');
+                    }
+                }
+            });
+
+            // On modal show, set the correct state for price input
+            $('.modal').on('shown.bs.modal', function() {
+                $(this).find('.plan-type-select').trigger('change');
+            });
+        });
+    </script>
+@endpush

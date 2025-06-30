@@ -53,7 +53,7 @@
                             <label for="create_services_name" class="form-label">Services Name:</label>
                             <input type="text" class="form-control" id="create_services_name" name="name"
                                 placeholder="Please Enter Services Name">
-                            <span class="text-danger error-text create_services_name_error"></span>
+                            <span class="text-danger error-text create_name_error"></span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -82,7 +82,7 @@
                             <label for="edit_services_name" class="form-label">Services Name:</label>
                             <input type="text" class="form-control" id="edit_services_name" name="name"
                                 placeholder="Please Enter Services Name">
-                            <span class="text-danger error-text edit_services_name_error"></span>
+                            <span class="text-danger error-text edit_name_error"></span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -215,8 +215,16 @@
                         }
                     })
                     .catch(function(error) {
-                        console.log(error);
-                        toastr.error('An error occurred while creating the service.');
+                        // Handle server-side validation errors (422)
+                        if (error.response && error.response.status === 422) {
+                            let errors = error.response.data.errors;
+                            $.each(errors, function(key, value) {
+                                $('.create_' + key + '_error').text(value[0]);
+                            });
+                            toastr.error('Please fix the errors.');
+                        } else {
+                            toastr.error('An error occurred while creating the service.');
+                        }
                     });
             });
 
@@ -254,8 +262,16 @@
                         }
                     })
                     .catch(function(error) {
-                        console.error('Error updating service:', error);
-                        toastr.error('An error occurred while updating the service.');
+                        // Handle server-side validation errors (422)
+                        if (error.response && error.response.status === 422) {
+                            let errors = error.response.data.errors;
+                            $.each(errors, function(key, value) {
+                                $('.edit_' + key + '_error').text(value[0]);
+                            });
+                            toastr.error('Please fix the errors.');
+                        } else {
+                            toastr.error('An error occurred while updating the service.');
+                        }
                     });
             });
         });
