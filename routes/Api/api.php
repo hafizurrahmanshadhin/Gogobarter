@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\SubscriptionPlanController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,5 @@ Route::post('/exchange-request/{id}/accept', [ExchangeRequestController::class, 
 Route::post('/exchange-request/{id}/decline', [ExchangeRequestController::class, 'declineRequest'])->middleware('auth.jwt');
 Route::get('/exchange-request/{id}/offered-product', [ExchangeRequestController::class, 'offeredProductDetails'])->middleware('auth.jwt');
 
+Route::post('/subscriptions/{plan}/checkout', [StripeController::class, 'checkout'])->middleware('auth.jwt');
+Route::post('/stripe/webhook', [StripeController::class, 'webhook']);
