@@ -90,35 +90,63 @@ class StripeController extends Controller {
             return response('Invalid payload', 400);
         }
 
-        if ($event->type === 'checkout.session.completed') {
-            $session  = $event->data->object;
-            $metadata = $session->metadata ?? [];
-
-            $userId = $metadata->user_id ?? null;
-            $planId = $metadata->plan_id ?? null;
+        // 1. Handle payment_intent.succeeded (RECOMMENDED for one-time payments)
+        if ($event->type === 'payment_intent.succeeded') {
+            $intent   = $event->data->object;
+            $metadata = $intent->metadata ?? [];
+            $userId   = $metadata->user_id ?? null;
+            $planId   = $metadata->plan_id ?? null;
 
             if ($userId && $planId) {
                 $plan   = SubscriptionPlan::find($planId);
                 $endsAt = null;
-
                 if ($plan) {
                     $endsAt = $plan->billing_interval === 'year'
                     ? now()->addYear()
                     : now()->addMonth();
                 }
 
-                UserSubscription::updateOrCreate(
-                    ['user_id' => $userId],
-                    [
-                        'subscription_plan_id' => $planId,
-                        'status'               => 'active',
-                        'starts_at'            => now(),
-                        'ends_at'              => $endsAt,
-                        'amount_paid'          => $session->amount_total / 100,
-                        'payment_method'       => 'stripe',
-                        'transaction_id'       => $session->payment_intent,
-                    ]
-                );
+                UserSubscription::updateOrCreate([
+                    'user_id' => $userId,
+                ], [
+                    'subscription_plan_id' => $planId,
+                    'status'               => 'active',
+                    'starts_at'            => now(),
+                    'ends_at'              => $endsAt,
+                    'amount_paid'          => $intent->amount_received / 100, // use amount_received for payment_intent
+                    'payment_method'       => 'stripe',
+                    'transaction_id'       => $intent->id,
+                ]);
+            }
+        }
+
+        // 2. Optionally, still handle checkout.session.completed for safety
+        if ($event->type === 'checkout.session.completed') {
+            $session  = $event->data->object;
+            $metadata = $session->metadata ?? [];
+            $userId   = $metadata->user_id ?? null;
+            $planId   = $metadata->plan_id ?? null;
+
+            if ($userId && $planId) {
+                $plan   = SubscriptionPlan::find($planId);
+                $endsAt = null;
+                if ($plan) {
+                    $endsAt = $plan->billing_interval === 'year'
+                    ? now()->addYear()
+                    : now()->addMonth();
+                }
+
+                UserSubscription::updateOrCreate([
+                    'user_id' => $userId,
+                ], [
+                    'subscription_plan_id' => $planId,
+                    'status'               => 'active',
+                    'starts_at'            => now(),
+                    'ends_at'              => $endsAt,
+                    'amount_paid'          => isset($session->amount_total) ? $session->amount_total / 100 : null,
+                    'payment_method'       => 'stripe',
+                    'transaction_id'       => $session->payment_intent ?? null,
+                ]);
             }
         }
 
