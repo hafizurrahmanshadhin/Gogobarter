@@ -9,6 +9,7 @@ use App\Http\Resources\Api\ExchangeRequestResource;
 use App\Http\Resources\Api\OfferedProductDetailsResource;
 use App\Models\ExchangeRequest;
 use App\Models\Product;
+use App\Notifications\ExchangeRequestNotification;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -50,6 +51,18 @@ class ExchangeRequestController extends Controller {
                 'message'              => $request->message,
                 'status'               => 'pending',
             ]);
+
+            $requestedProduct = Product::find($request->requested_product_id);
+            if ($requestedProduct && $requestedProduct->user_id != Auth::id()) {
+                $requestedProduct->user->notify(new ExchangeRequestNotification(
+                    'exchange_request',
+                    Auth::user()->name . ' sent you an exchange request.',
+                    [
+                        'exchange_request_id' => $exchangeRequest->id,
+                        'offered_product_id'  => $offeredProduct->id,
+                    ]
+                ));
+            }
 
             return Helper::jsonResponse(true, 'Exchange request sent successfully.', 201, $exchangeRequest);
         } catch (Exception $e) {
@@ -112,6 +125,14 @@ class ExchangeRequestController extends Controller {
             $request->status = 'accepted';
             $request->save();
 
+            $request->requester->notify(new ExchangeRequestNotification(
+                'exchange_response',
+                Auth::user()->name . ' accepted your exchange request.',
+                [
+                    'exchange_request_id' => $request->id,
+                ]
+            ));
+
             return Helper::jsonResponse(true, 'Exchange request accepted.', 200);
         } catch (Exception $e) {
             return Helper::jsonResponse(false, 'Failed to accept exchange request.', 500, null, ['error' => $e->getMessage()]);
@@ -137,6 +158,14 @@ class ExchangeRequestController extends Controller {
 
             $request->status = 'rejected';
             $request->save();
+
+            $request->requester->notify(new ExchangeRequestNotification(
+                'exchange_response',
+                Auth::user()->name . ' declined your exchange request.',
+                [
+                    'exchange_request_id' => $request->id,
+                ]
+            ));
 
             return Helper::jsonResponse(true, 'Exchange request declined.', 200);
         } catch (Exception $e) {

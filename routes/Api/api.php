@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ContentController;
 use App\Http\Controllers\Api\ExchangeRequestController;
 use App\Http\Controllers\Api\HeaderAndFooterController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
@@ -34,11 +35,17 @@ Route::get('/profile', [ProfileController::class, 'profile'])->middleware('auth.
 Route::post('/dashboard/profile/update', [ProfileController::class, 'updateProfile'])->middleware('auth.jwt');
 Route::post('/dashboard/password/update', [ProfileController::class, 'updatePassword'])->middleware('auth.jwt');
 
+// Exchange request routes
 Route::post('/exchange-request', [ExchangeRequestController::class, 'store'])->middleware('auth.jwt');
 Route::get('/exchange-request/list', [ExchangeRequestController::class, 'myExchangeRequests'])->middleware('auth.jwt');
 Route::post('/exchange-request/{id}/accept', [ExchangeRequestController::class, 'acceptRequest'])->middleware('auth.jwt');
 Route::post('/exchange-request/{id}/decline', [ExchangeRequestController::class, 'declineRequest'])->middleware('auth.jwt');
 Route::get('/exchange-request/{id}/offered-product', [ExchangeRequestController::class, 'offeredProductDetails'])->middleware('auth.jwt');
 
+// Stripe payment routes
 Route::post('/subscriptions/{plan}/checkout', [StripeController::class, 'checkout'])->middleware('auth.jwt');
 Route::post('/stripe/webhook', [StripeController::class, 'webhook']);
+
+// Notifications routes
+Route::get('/notifications', [NotificationController::class, 'index'])->middleware('auth.jwt');
+Route::post('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->middleware('auth.jwt');
