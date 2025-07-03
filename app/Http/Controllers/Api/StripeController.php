@@ -98,6 +98,12 @@ class StripeController extends Controller {
             $planId   = $metadata->plan_id ?? null;
 
             if ($userId && $planId) {
+                // Expire previous active subscriptions
+                UserSubscription::where('user_id', $userId)
+                    ->where('status', 'active')
+                    ->update(['status' => 'expired', 'cancelled_at' => now()]);
+
+                // Create new active subscription
                 $plan   = SubscriptionPlan::find($planId);
                 $endsAt = null;
                 if ($plan) {
@@ -106,14 +112,13 @@ class StripeController extends Controller {
                     : now()->addMonth();
                 }
 
-                UserSubscription::updateOrCreate([
-                    'user_id' => $userId,
-                ], [
+                UserSubscription::create([
+                    'user_id'              => $userId,
                     'subscription_plan_id' => $planId,
                     'status'               => 'active',
                     'starts_at'            => now(),
                     'ends_at'              => $endsAt,
-                    'amount_paid'          => $intent->amount_received / 100, // use amount_received for payment_intent
+                    'amount_paid'          => $intent->amount_received / 100,
                     'payment_method'       => 'stripe',
                     'transaction_id'       => $intent->id,
                 ]);

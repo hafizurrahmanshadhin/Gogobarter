@@ -33,8 +33,8 @@ class SubscriptionPlanSeeder extends Seeder {
                     '1 Featured Post',
                     'No Priority Listing',
                 ],
-                'is_recommended'   => true,
-                'status'           => 'active',
+                'is_recommended'   => false,
+                'status'           => 'inactive',
             ],
             [
                 'name'             => 'Organization',
@@ -47,7 +47,7 @@ class SubscriptionPlanSeeder extends Seeder {
                     'Best for professionals',
                     'Priority Listing ( Search Priority )',
                 ],
-                'is_recommended'   => false,
+                'is_recommended'   => true,
                 'status'           => 'active',
             ],
         ];
