@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder {
             CMSSeeder::class,
             SubscriptionPlanSeeder::class,
             ProductCategorySeeder::class,
-            ProductSeeder::class,
-            FavoriteSeeder::class,
-            ExchangeRequestSeeder::class,
+            // ProductSeeder::class,
+            // FavoriteSeeder::class,
+            // ExchangeRequestSeeder::class,
         ]);
     }
 }

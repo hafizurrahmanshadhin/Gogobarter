@@ -77,6 +77,30 @@ class HomeController extends Controller {
     }
 
     /**
+     * Generate a shareable link for a product.
+     *
+     * @param int $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function share($id): JsonResponse {
+        try {
+            $product = Product::findOrFail($id);
+
+            $shareUrl = config('app.frontend_url') . '/product/' . $product->id;
+
+            return Helper::jsonResponse(true, 'Shareable link generated.', 200, [
+                'share_url'   => $shareUrl,
+                'title'       => $product->name,
+                'description' => $product->description,
+                'image'       => is_array($product->images) && count($product->images) > 0 ? $product->images[0] : null,
+            ]);
+        } catch (Exception $e) {
+            return Helper::jsonResponse(false, 'Failed to generate share link.', 500, null, ['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
      * Search for products based on the query provided in the request.
      *
      * @param Request $request
