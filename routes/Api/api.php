@@ -47,5 +47,8 @@ Route::post('/subscriptions/{plan}/checkout', [StripeController::class, 'checkou
 Route::post('/stripe/webhook', [StripeController::class, 'webhook']);
 
 // Notifications routes
-Route::get('/notifications', [NotificationController::class, 'index'])->middleware('auth.jwt');
-Route::post('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->middleware('auth.jwt');
+Route::controller(NotificationController::class)->prefix('notifications')->middleware('auth.jwt')->group(function () {
+    Route::get('/', 'index');
+    Route::post('/read/{id}', 'markAsRead');
+    Route::delete('/delete/{id}', 'destroy');
+});

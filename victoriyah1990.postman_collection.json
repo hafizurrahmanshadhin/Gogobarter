@@ -25,9 +25,20 @@
 									"const randomDomain = domains[Math.floor(Math.random() * domains.length)];\r",
 									"const email = `${name.toLowerCase()}${randomNumber}@${randomDomain}`;\r",
 									"\r",
+									"const phone_number = `98${Math.floor(10000000 + Math.random() * 90000000)}`;\r",
+									"const addresses = [\r",
+									"    \"123 Main St, Springfield\",\r",
+									"    \"456 Elm St, Metropolis\",\r",
+									"    \"789 Oak Ave, Gotham\",\r",
+									"    \"321 Maple Rd, Star City\",\r",
+									"    \"654 Pine Ln, Central City\"\r",
+									"];\r",
+									"const address = addresses[Math.floor(Math.random() * addresses.length)];\r",
+									"\r",
 									"pm.globals.set(\"name\", name);\r",
 									"pm.globals.set(\"email\", email);\r",
-									""
+									"pm.globals.set(\"phone_number\", phone_number);\r",
+									"pm.globals.set(\"address\", address);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -82,6 +93,16 @@
 									"type": "text"
 								},
 								{
+									"key": "phone_number",
+									"value": "{{phone_number}}",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "{{address}}",
+									"type": "text"
+								},
+								{
 									"key": "password",
 									"value": "12345678",
 									"type": "text"
@@ -89,12 +110,6 @@
 								{
 									"key": "password_confirmation",
 									"value": "12345678",
-									"type": "text"
-								},
-								{
-									"key": "role",
-									"value": "trade",
-									"description": "Accept only 'user' or 'trade'",
 									"type": "text"
 								},
 								{
@@ -380,7 +395,7 @@
 							"formdata": [
 								{
 									"key": "otp",
-									"value": "5019",
+									"value": "8222",
 									"type": "text"
 								}
 							]
@@ -500,6 +515,257 @@
 			]
 		},
 		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "user-profile",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-profile",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const names = [\"John\", \"Jane\", \"Michael\", \"Emily\", \"David\", \"Sarah\", \"Robert\", \"Jessica\", \"Daniel\", \"Laura\"];\r",
+									"const name = names[Math.floor(Math.random() * names.length)];\r",
+									"const phone_number = `98${Math.floor(10000000 + Math.random() * 90000000)}`;\r",
+									"const addresses = [\r",
+									"    \"123 Main St, Springfield\",\r",
+									"    \"456 Elm St, Metropolis\",\r",
+									"    \"789 Oak Ave, Gotham\",\r",
+									"    \"321 Maple Rd, Star City\",\r",
+									"    \"654 Pine Ln, Central City\"\r",
+									"];\r",
+									"const address = addresses[Math.floor(Math.random() * addresses.length)];\r",
+									"\r",
+									"pm.globals.set(\"name\", name);\r",
+									"pm.globals.set(\"phone_number\", phone_number);\r",
+									"pm.globals.set(\"address\", address);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/HP/Pictures/Screenshots/Screenshot (32).png"
+								},
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "{{phone_number}}",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "{{address}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/dashboard/profile/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								"profile",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "current_password",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "new_password_confirmation",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/dashboard/password/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								"password",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "Message",
 			"item": [
 				{
@@ -535,6 +801,16 @@
 									"key": "message",
 									"value": "Hello! I am from user...",
 									"type": "text"
+								},
+								{
+									"key": "attachment[]",
+									"type": "file",
+									"src": [
+										"/C:/Users/HP/Pictures/Screenshots/Screenshot (30).png",
+										"/C:/Users/HP/Pictures/Screenshots/Screenshot (31).png",
+										"/C:/Users/HP/Pictures/Screenshots/Screenshot (32).png",
+										"/C:/Users/HP/Documents/api_sample.pdf"
+									]
 								}
 							]
 						},
@@ -628,6 +904,31 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -671,6 +972,1369 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Subscription_Plan",
+			"item": [
+				{
+					"name": "subscription-plans-list",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/subscription-plans/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subscription-plans",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product_And_Category",
+			"item": [
+				{
+					"name": "product-categories-list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/product-categories/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"product-categories",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const names = [\"Product A\", \"Product B\", \"Product C\"];\r",
+									"const descriptions = [\"A great product.\", \"High quality item.\", \"Limited edition.\"];\r",
+									"const conditions = [\"New\", \"Old\"];\r",
+									"\r",
+									"const name = names[Math.floor(Math.random() * names.length)];\r",
+									"const description = descriptions[Math.floor(Math.random() * descriptions.length)];\r",
+									"const condition = conditions[Math.floor(Math.random() * conditions.length)];\r",
+									"\r",
+									"pm.globals.set(\"name\", name);\r",
+									"pm.globals.set(\"description\", description);\r",
+									"pm.globals.set(\"condition\", condition);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_category_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{description}}",
+									"type": "text"
+								},
+								{
+									"key": "condition",
+									"value": "{{condition}}",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": [
+										"/C:/Users/hrsha/Pictures/Screenshots/Screenshot 2025-07-05 123930.png",
+										"/C:/Users/hrsha/Pictures/Screenshots/Screenshot 2025-07-03 095346.png"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/product/store",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"product",
+								"store"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Home",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/home?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"home"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "header-footer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/header-footer",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"header-footer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product-details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/home/product/details/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"home",
+								"product",
+								"details",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "share-product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/home/product/share/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"home",
+								"product",
+								"share",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Exchange_Request",
+			"item": [
+				{
+					"name": "exchange-request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "requested_product_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "My Old Phone",
+									"type": "text"
+								},
+								{
+									"key": "product_category_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Good condition",
+									"type": "text"
+								},
+								{
+									"key": "condition",
+									"value": "Old",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": [
+										"/C:/Users/hrsha/Pictures/Screenshots/Screenshot 2025-07-03 093441.png",
+										"/C:/Users/hrsha/Pictures/Screenshots/Screenshot 2025-07-03 095346.png",
+										"/C:/Users/hrsha/Pictures/Screenshots/Screenshot 2025-07-05 123930.png"
+									]
+								},
+								{
+									"key": "message",
+									"value": "Interested in swap!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/exchange-request",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exchange-request"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Search_Filter_&_toggleFavorite",
+			"item": [
+				{
+					"name": "search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/home/search?product=voluptate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"home",
+								"search"
+							],
+							"query": [
+								{
+									"key": "product",
+									"value": "voluptate"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/home/products/filter?product_category_id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"home",
+								"products",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "product_category_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggle_favorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/product/toggle-favorite/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"product",
+								"toggle-favorite",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "my-product-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/dashboard/my-products?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								"my-products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "favorites-product-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/dashboard/favorites/list?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								"favorites",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const names = [\"Updated Product A\", \"Updated Product B\", \"Updated Product C\"];\r",
+									"const descriptions = [\"Updated A great product.\", \"Updated High quality item.\", \"Updated Limited edition.\"];\r",
+									"const conditions = [\"New\", \"Old\"];\r",
+									"\r",
+									"const name = names[Math.floor(Math.random() * names.length)];\r",
+									"const description = descriptions[Math.floor(Math.random() * descriptions.length)];\r",
+									"const condition = conditions[Math.floor(Math.random() * conditions.length)];\r",
+									"\r",
+									"pm.globals.set(\"name\", name);\r",
+									"pm.globals.set(\"description\", description);\r",
+									"pm.globals.set(\"condition\", condition);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_category_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{description}}",
+									"type": "text"
+								},
+								{
+									"key": "condition",
+									"value": "{{condition}}",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": "/C:/Users/hrsha/Pictures/Screenshots/Screenshot (1).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/product/update/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"product",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/products/delete/101",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"delete",
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exchange-request-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/exchange-request/list?status=pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exchange-request",
+								"list"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "Support only pending or accepted or rejected"
+								},
+								{
+									"key": "status",
+									"value": "accepted",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "rejected",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accept-exchange-request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/exchange-request/1/accept",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exchange-request",
+								"1",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "decline-exchange-request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/exchange-request/1/decline",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exchange-request",
+								"1",
+								"decline"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "offered-product-details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/exchange-request/1/offered-product",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exchange-request",
+								"1",
+								"offered-product"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "checkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"success_url\": \"https://gogobarter.com\",\r\n    \"cancel_url\": \"https://gogobarter.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/subscriptions/3/checkout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subscriptions",
+								"3",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/notifications",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read-notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/notifications/read/b3e485b2-0499-49c5-8f33-5d246fc2e946",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications",
+								"read",
+								"b3e485b2-0499-49c5-8f33-5d246fc2e946"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/notifications/delete/b3e485b2-0499-49c5-8f33-5d246fc2e946",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications",
+								"delete",
+								"b3e485b2-0499-49c5-8f33-5d246fc2e946"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		}
 	],
@@ -704,6 +2368,18 @@
 		{
 			"key": "base_url",
 			"value": "https://victoriyah1990.softvencefsd.xyz/api",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "base_url",
+			"value": "https://admin.gogobarter.com/api",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "base_url",
+			"value": "http://172.16.100.96:8000/api",
 			"type": "string",
 			"disabled": true
 		}

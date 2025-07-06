@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller {
     /**
-     * Get all notifications for the authenticated user.
+     * Display a listing of the notifications.
+     *
+     * @return JsonResponse
+     * @throws Exception
      */
     public function index(): JsonResponse {
         try {
@@ -31,6 +34,10 @@ class NotificationController extends Controller {
 
     /**
      * Mark a notification as read.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
      */
     public function markAsRead($id): JsonResponse {
         try {
@@ -39,6 +46,27 @@ class NotificationController extends Controller {
             $notification->markAsRead();
 
             return Helper::jsonResponse(true, 'Notification marked as read.', 200);
+        } catch (Exception $e) {
+            return Helper::jsonResponse(false, 'An error occurred', 500, [
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * Delete a notification.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function destroy($id): JsonResponse {
+        try {
+            $user         = Auth::user();
+            $notification = $user->notifications()->where('id', $id)->firstOrFail();
+            $notification->delete();
+
+            return Helper::jsonResponse(true, 'Notification deleted successfully.', 200);
         } catch (Exception $e) {
             return Helper::jsonResponse(false, 'An error occurred', 500, [
                 'error' => $e->getMessage(),
