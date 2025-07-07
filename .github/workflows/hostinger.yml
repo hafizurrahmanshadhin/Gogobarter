@@ -17,3 +17,5 @@ jobs:
           server: 31.97.132.42
           username: backend_ftp
           password: "84Qu9AyvlU8e1Vt7Am4T"
+          protocol: ftp
+          port: 21
