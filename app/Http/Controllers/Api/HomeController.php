@@ -134,21 +134,37 @@ class HomeController extends Controller {
     }
 
     /**
-     * Filter products by category.
+     * Filter products by category and sort order.
      *
      * @param Request $request
      * @return JsonResponse
      * @throws Exception
      */
-    public function filterByCategory(Request $request): JsonResponse {
+    public function filter(Request $request): JsonResponse {
         try {
             $categoryId = $request->input('product_category_id');
+            $sortBy     = $request->input('sort_by');
 
-            $products = Product::with('user')
+            $query = Product::with('user')
                 ->where('status', 'active')
-                ->where('product_category_id', $categoryId)
-                ->latest()
-                ->paginate(12);
+                ->where('product_category_id', $categoryId);
+
+            switch ($sortBy) {
+            case 'name_asc':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'name_desc':
+                $query->orderBy('name', 'desc');
+                break;
+            case 'oldest':
+                $query->orderBy('created_at', 'asc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+            }
+
+            $products = $query->paginate(12);
 
             return Helper::jsonResponse(true, 'Filtered products fetched successfully.', 200, [
                 'products'   => FeatureItemResource::collection($products),

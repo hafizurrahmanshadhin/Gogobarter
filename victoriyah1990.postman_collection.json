@@ -810,7 +810,8 @@
 										"/C:/Users/HP/Pictures/Screenshots/Screenshot (31).png",
 										"/C:/Users/HP/Pictures/Screenshots/Screenshot (32).png",
 										"/C:/Users/HP/Documents/api_sample.pdf"
-									]
+									],
+									"disabled": true
 								}
 							]
 						},
@@ -1579,7 +1580,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/home/products/filter?product_category_id=1",
+							"raw": "{{base_url}}/home/products/filter?product_category_id=1&sort_by=name_asc",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1592,6 +1593,11 @@
 								{
 									"key": "product_category_id",
 									"value": "1"
+								},
+								{
+									"key": "sort_by",
+									"value": "name_asc",
+									"description": "Accept only \"name_asc\" or \"name_desc\" or \"oldest\""
 								}
 							]
 						}

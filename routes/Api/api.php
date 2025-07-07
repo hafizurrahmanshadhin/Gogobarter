@@ -20,7 +20,7 @@ Route::get('/product-categories/list', [ProductCategoryController::class, 'index
 Route::get('/header-footer', HeaderAndFooterController::class);
 Route::get('/home', [HomeController::class, 'index'])->middleware('is_favorite');
 Route::get('/home/search', [HomeController::class, 'search'])->middleware('is_favorite');
-Route::get('/home/products/filter', [HomeController::class, 'filterByCategory'])->middleware('is_favorite');
+Route::get('/home/products/filter', [HomeController::class, 'filter'])->middleware('is_favorite');
 Route::get('/home/product/details/{id}', [HomeController::class, 'show'])->middleware('is_favorite');
 Route::get('/home/product/share/{id}', [HomeController::class, 'share']);
 Route::post('/product/store', [ProductController::class, 'store'])->middleware('auth.jwt');
