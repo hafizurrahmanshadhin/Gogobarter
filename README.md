@@ -10,9 +10,7 @@ php artisan serve
 
 ## [Live Link (Backend) Softvence](https://victoriyah1990.softvencefsd.xyz)
 
-
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
 
 ## [Live Link (Frontend) Victoriyah](https://gogobarter.com)
 
