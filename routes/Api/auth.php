@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\Auth\PasswordResetController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-//# Auth Routes Start
+// Auth Routes Start
 Route::prefix('auth')->middleware(['throttle:10,1'])->group(function () {
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [LoginController::class, 'login']);
@@ -19,4 +19,4 @@ Route::prefix('auth')->middleware(['throttle:10,1'])->group(function () {
             Route::post('/reset-password', 'resetPassword');
         });
 });
-//~ Auth Routes End
+// Auth Routes End
