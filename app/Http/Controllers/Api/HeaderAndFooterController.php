@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
 use App\Helpers\Helper;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Services\Api\Home\HeaderAndFooterService;
 use App\Http\Resources\Api\Home\HeaderAndFooterResource;
+use App\Services\Api\Home\HeaderAndFooterService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 
-class HeaderAndFooterController extends Controller
-{
+class HeaderAndFooterController extends Controller {
     private HeaderAndFooterService $headerFooterService;
     public function __construct(HeaderAndFooterService $headerFooterService) {
         $this->headerFooterService = $headerFooterService;
