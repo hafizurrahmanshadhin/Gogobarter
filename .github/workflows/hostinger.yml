@@ -22,5 +22,5 @@ jobs:
           password: "84Qu9AyvlU8e1Vt7Am4T"
           protocol: ftp
           port: 21
-          server-dir: admin.gogobarter.com
+          server-dir: admin.gogobarter.com/
           dry-run: false
